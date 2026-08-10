@@ -1,0 +1,4 @@
+id,pregunta,opcion_a,opcion_b,opcion_c,opcion_d,respuesta_correcta,dificultad,tema
+1,¿Qué palabra clave se usa para definir una función?,def,func,function,define,A,Fácil,Sintaxis
+2,¿Cuál es el tipo de dato de 1.5?,int,float,str,bool,B,Fácil,Tipos de Datos
+3,¿Cómo se inicia un comentario en Python?,//,/*,#,--,C,Fácil,Sintaxis

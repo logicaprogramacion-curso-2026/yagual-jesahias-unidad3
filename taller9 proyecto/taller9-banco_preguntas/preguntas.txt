@@ -1,0 +1,6 @@
+1|¿Qué palabra clave se usa para definir una función?|def|func|function|define|A|Fácil|Sintaxis
+2|¿Cuál es el tipo de dato de 1.5?|int|float|str|bool|B|Fácil|Tipos de Datos
+3|¿Cómo se inicia un comentario en Python?|//|/*|#|--|C|Fácil|Sintaxis
+4|¿Qué método agrega un elemento al final de una lista?|add()|push()|append()|insert()|C|Fácil|Listas
+5|¿Qué operador se usa para la potencia?|^|**|exp|pow|B|Media|Operadores
+... (repite el formato hasta tener 50)

@@ -1,0 +1,2 @@
+# No se requieren librerías externas para este proyecto base.
+# Se utiliza sqlite3, json, csv y random que vienen con Python.

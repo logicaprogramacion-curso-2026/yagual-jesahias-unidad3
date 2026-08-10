@@ -1,0 +1,13 @@
+[
+    {
+        "id": 1,
+        "pregunta": "¿Qué palabra clave se usa para definir una función?",
+        "opcion_a": "def",
+        "opcion_b": "func",
+        "opcion_c": "function",
+        "opcion_d": "define",
+        "respuesta_correcta": "A",
+        "dificultad": "Fácil",
+        "tema": "Sintaxis"
+    }
+]
