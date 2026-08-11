@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block title %}Resultados de la Autoevaluación{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-4">
+  <div>
+    <h4 class="mb-1">Resultados de {{ r.docente }}</h4>
+    {% if r.asignatura %}<p class="text-muted mb-0">{{ r.asignatura }}</p>{% endif %}
+  </div>
+  <a href="{{ url_for('reiniciar') }}" class="btn btn-outline-primary">
+    <i class="bi bi-arrow-repeat me-1"></i> Nueva autoevaluación
+  </a>
+</div>
+
+<div class="row g-4 mb-4">
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm h-100 text-center">
+      <div class="card-body d-flex flex-column justify-content-center">
+        <p class="text-muted mb-1">Resultado general</p>
+        <h1 class="display-4 fw-bold text-{{ r.color_general }} mb-0">{{ r.porcentaje_general }}%</h1>
+        <span class="badge bg-{{ r.color_general }} align-self-center mt-2 px-3 py-2">
+          {{ r.etiqueta_general }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <canvas id="radarChart" height="180"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="card-title mb-3">Detalle por competencia</h5>
+    <canvas id="barChart" height="110"></canvas>
+  </div>
+</div>
+
+<div class="row g-4 mb-4">
+  <div class="col-md-6">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-header bg-success-subtle">
+        <i class="bi bi-star-fill text-success me-1"></i> Fortalezas destacadas
+      </div>
+      <ul class="list-group list-group-flush">
+        {% for c in r.fortalezas %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{ c.nombre }}
+          <span class="badge bg-success rounded-pill">{{ c.porcentaje }}%</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-header bg-warning-subtle">
+        <i class="bi bi-exclamation-triangle-fill text-warning me-1"></i> Áreas de mejora
+      </div>
+      <ul class="list-group list-group-flush">
+        {% for c in r.areas_mejora %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{ c.nombre }}
+          <span class="badge bg-warning text-dark rounded-pill">{{ c.porcentaje }}%</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-hover align-middle bg-white shadow-sm rounded">
+    <thead class="table-light">
+      <tr>
+        <th>Competencia</th>
+        <th class="text-center">Promedio (1-5)</th>
+        <th class="text-center">Porcentaje</th>
+        <th class="text-center">Nivel</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in r.competencias %}
+      <tr>
+        <td><i class="bi {{ c.icono }} text-primary me-2"></i>{{ c.nombre }}</td>
+        <td class="text-center">{{ c.promedio }}</td>
+        <td class="text-center">{{ c.porcentaje }}%</td>
+        <td class="text-center"><span class="badge bg-{{ c.color }}">{{ c.etiqueta }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+  const labels = {{ r.competencias | map(attribute='nombre') | list | tojson }};
+  const valores = {{ r.competencias | map(attribute='porcentaje') | list | tojson }};
+
+  new Chart(document.getElementById('radarChart'), {
+    type: 'radar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Nivel de logro (%)',
+        data: valores,
+        backgroundColor: 'rgba(13,110,253,0.2)',
+        borderColor: 'rgba(13,110,253,1)',
+        pointBackgroundColor: 'rgba(13,110,253,1)',
+      }]
+    },
+    options: {
+      scales: { r: { min: 0, max: 100, ticks: { stepSize: 20 } } },
+      plugins: { legend: { display: false } }
+    }
+  });
+
+  new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Nivel de logro (%)',
+        data: valores,
+        backgroundColor: 'rgba(13,110,253,0.7)',
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      scales: { x: { min: 0, max: 100 } },
+      plugins: { legend: { display: false } }
+    }
+  });
+</script>
+{% endblock %}

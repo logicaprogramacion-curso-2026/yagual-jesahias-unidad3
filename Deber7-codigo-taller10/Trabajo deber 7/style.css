@@ -1,0 +1,17 @@
+body {
+  background-color: #f4f6f9;
+}
+
+.card {
+  border-radius: 0.75rem;
+}
+
+.form-check-input {
+  width: 1.3em;
+  height: 1.3em;
+  cursor: pointer;
+}
+
+.navbar-brand i {
+  font-size: 1.2em;
+}

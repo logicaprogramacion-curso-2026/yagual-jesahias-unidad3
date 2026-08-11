@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Formulario de Autoevaluación{% endblock %}
+
+{% block content %}
+
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h4 class="card-title mb-1">Autoevaluación Docente</h4>
+    <p class="text-muted mb-0">
+      Reflexiona sobre tu práctica pedagógica y responde con honestidad cada indicador.
+      Esta evaluación es <strong>formativa</strong>: su propósito es identificar fortalezas
+      y oportunidades de mejora, no calificar ni sancionar.
+    </p>
+  </div>
+</div>
+
+<form action="{{ url_for('evaluar') }}" method="post">
+
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Nombre del docente (opcional)</label>
+        <input type="text" class="form-control" name="nombre_docente" placeholder="Ej. María Fernández">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Asignatura / área (opcional)</label>
+        <input type="text" class="form-control" name="asignatura" placeholder="Ej. Matemática - 8vo EGB">
+      </div>
+    </div>
+  </div>
+
+  {% for comp in competencias %}
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white">
+      <h5 class="mb-0"><i class="bi {{ comp.icono }} text-primary me-2"></i>{{ comp.nombre }}</h5>
+    </div>
+    <div class="card-body">
+
+      <div class="d-none d-md-flex text-muted small mb-2 px-2">
+        <div class="col-6">Indicador</div>
+        <div class="col text-center">Nunca</div>
+        <div class="col text-center">Rara vez</div>
+        <div class="col text-center">A veces</div>
+        <div class="col text-center">Frecuentemente</div>
+        <div class="col text-center">Siempre</div>
+      </div>
+
+      {% for indicador in comp.indicadores %}
+      {% set idx = loop.index0 %}
+      <div class="row align-items-center py-2 {% if not loop.last %}border-bottom{% endif %}">
+        <div class="col-md-6 mb-2 mb-md-0">{{ indicador }}</div>
+        <div class="col-md-6">
+          <div class="d-flex justify-content-between justify-content-md-around">
+            {% for valor in range(1, 6) %}
+            <div class="form-check">
+              <input class="form-check-input" type="radio"
+                     name="{{ comp.id }}_{{ idx }}"
+                     id="{{ comp.id }}_{{ idx }}_{{ valor }}"
+                     value="{{ valor }}" {% if valor == 3 %}checked{% endif %} required>
+              <label class="form-check-label d-md-none small" for="{{ comp.id }}_{{ idx }}_{{ valor }}">
+                {{ valor }}
+              </label>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="d-grid d-md-flex justify-content-md-end gap-2 mb-5">
+    <button type="reset" class="btn btn-outline-secondary">Limpiar</button>
+    <button type="submit" class="btn btn-primary px-4">
+      <i class="bi bi-graph-up me-1"></i> Ver resultados
+    </button>
+  </div>
+
+</form>
+
+{% endblock %}
