@@ -1,0 +1,13 @@
+venta_id,producto_id,producto_nombre,cantidad,precio_unitario,descuento_pct,total,fecha
+1,1,Mouse Inalambrico,2,13.0,0,26.0,2026-08-17 17:26:19
+2,2,Teclado Mecanico,1,35.0,0,35.0,2026-08-17 17:26:19
+3,3,"Monitor 24""",3,120.0,0,360.0,2026-08-17 17:26:19
+4,4,Audifonos Bluetooth,5,25.9,0,129.5,2026-08-17 17:26:19
+5,5,Webcam HD,4,18.75,0,75.0,2026-08-17 17:26:19
+6,6,Disco SSD 480GB,2,45.0,0,90.0,2026-08-17 17:26:19
+7,1,Mouse Inalambrico,12,13.0,5,148.2,2026-08-17 17:26:19
+8,2,Teclado Mecanico,6,35.0,0,210.0,2026-08-17 17:26:19
+9,7,Base Enfriadora Laptop,3,22.5,0,67.5,2026-08-17 17:26:19
+10,3,"Monitor 24""",1,120.0,0,120.0,2026-08-17 17:26:19
+11,4,Audifonos Bluetooth,8,25.9,0,207.2,2026-08-17 17:26:19
+12,6,Disco SSD 480GB,10,45.0,5,427.5,2026-08-17 17:26:19
